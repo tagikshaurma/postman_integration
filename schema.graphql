@@ -1,0 +1,1832 @@
+directive @goModel(
+  model: String
+  models: [String!]
+) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+directive @HasAccess(attributes: ResourceAttributes!) on FIELD_DEFINITION
+directive @isValidated on FIELD_DEFINITION
+directive @BlockParsePerson on FIELD_DEFINITION
+directive @goField(
+  forceResolver: Boolean
+  name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+directive @Private on FIELD_DEFINITION
+type Address {
+  uuid: UUID
+  formattedAddress: String
+  country: Country
+  region: Region
+  area: Area
+  city: City
+  cityDistrict: CityDistrict
+  settlement: Settlement
+  street: Street
+  house: String
+  block: String
+  flat: String
+  lat: Float
+  lon: Float
+  person: Person
+  organization: Organization
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  timezone: Int
+}
+
+input AddressFilter {
+  uuid: UUIDFilter
+  formattedAddress: StringFilter
+  country: CountryInput
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  cityDistrict: CityDistrictInput
+  settlement: SettlementInput
+  street: StreetInput
+  house: StringFilter
+  block: StringFilter
+  flat: StringFilter
+  lat: FloatFilter
+  lon: FloatFilter
+  person: PersonFilter
+  organization: OrganizationFilter
+  isDeleted: Boolean
+  and: [AddressFilter]
+  or: [AddressFilter]
+  not: AddressFilter
+}
+
+input AddressInput {
+  uuid: UUID
+  formattedAddress: String
+  country: CountryInput
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  cityDistrict: CityDistrictInput
+  settlement: SettlementInput
+  street: StreetInput
+  house: String
+  block: String
+  flat: String
+  lat: Float
+  lon: Float
+  person: PersonInput
+  organization: OrganizationInput
+  isDeleted: Boolean
+  timezone: Int
+}
+
+type Area {
+  uuid: UUID
+  region: Region
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input AreaFilter {
+  uuid: UUIDFilter
+  region: RegionFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input AreaInput {
+  uuid: UUID
+  region: RegionInput
+  name: String
+  isDeleted: Boolean
+}
+
+type Balance {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  organization: Organization
+  amount: Float
+  movement: Movement
+}
+
+type Banks {
+  uuid: String!
+  name: String!
+  nameRus: String!
+}
+
+type Candidate {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  person: Person
+  job: Job
+  candidateTag: CandidateTags
+  isDeleted: Boolean
+}
+
+input CandidateInput {
+  uuid: UUID
+  person: PersonInput
+  job: JobInput
+  candidateTag: CandidateTags
+  isDeleted: Boolean
+}
+
+enum CandidateTags {
+  primary
+  secondary
+  refused
+  rejected
+  notConfirm
+  noTraining
+}
+
+type City {
+  uuid: UUID
+  region: Region
+  area: Area
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+type CityDistrict {
+  uuid: UUID
+  region: Region
+  area: Area
+  city: City
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input CityDistrictFilter {
+  uuid: UUIDFilter
+  region: RegionFilter
+  area: AreaFilter
+  city: CityFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input CityDistrictInput {
+  uuid: UUID
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  name: String
+  isDeleted: Boolean
+}
+
+input CityFilter {
+  uuid: UUIDFilter
+  region: RegionFilter
+  area: AreaFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input CityInput {
+  uuid: UUID
+  region: RegionInput
+  area: AreaInput
+  name: String
+  isDeleted: Boolean
+}
+
+enum ClientType {
+  mobile
+  web
+  director
+}
+
+type Contact {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  person: Person
+  organization: Organization
+  contactType: ContactType
+  presentation: String
+  isDeleted: Boolean
+}
+
+input ContactFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  person: PersonFilter
+  contactType: ContactTypeInput
+  presentation: StringFilter
+  isDeleted: Boolean
+  and: [ContactFilter]
+  or: [ContactFilter]
+  not: ContactFilter
+}
+
+input ContactInput {
+  uuid: UUID
+  person: PersonInput
+  organization: OrganizationInput
+  contactType: ContactTypeInput
+  presentation: String
+  isDeleted: Boolean
+}
+
+type ContactType {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  name: String
+  isDeleted: Boolean
+}
+
+input ContactTypeFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  name: StringFilter
+  isDeleted: Boolean
+}
+
+input ContactTypeInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+type Content {
+  uuid: UUID!
+  bucket: String!
+  isDeleted: Boolean
+}
+
+input ContentInput {
+  uuid: UUID!
+  bucket: String!
+  isDeleted: Boolean
+}
+
+input Coordinates {
+  lat: Float
+  lon: Float
+}
+
+type Country {
+  uuid: UUID
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input CountryFilter {
+  uuid: UUIDFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input CountryInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+type Course {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  name: String
+  courseType: CourseType
+  content: String
+  organization: Organization
+  passingScore: Int
+}
+
+input CourseFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+  name: StringFilter
+  courseType: CourseType
+  content: StringFilter
+  organization: OrganizationFilter
+  passingScore: IntFilter
+}
+
+input CourseInput {
+  uuid: UUID
+  isDeleted: Boolean
+  name: String
+  courseType: CourseType
+  content: String
+  organization: OrganizationInput
+  passingScore: Int
+}
+
+enum CourseType {
+  course
+  briefing
+}
+
+scalar Date
+
+input DateFilter {
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  eq: Date
+  notEq: Date
+  between: [Date]
+}
+
+scalar DateTime
+
+input DateTimeFilter {
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  eq: DateTime
+  notEq: DateTime
+  between: [DateTime]
+}
+
+enum DestinationMovement {
+  selfEmployer
+  taxing
+  commission
+  reward
+  rewardTax
+}
+
+enum Direct {
+  plus
+  minus
+}
+
+scalar Duration
+
+input FloatFilter {
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  eq: Float
+  notEq: Float
+  between: [Float]
+}
+
+type FnsMsg {
+  Id: String
+  Title: String
+  Message: String
+  Status: String
+  CreatedAt: DateTime
+  Image: String
+  Owner: String
+}
+
+enum Gender {
+  Male
+  Female
+}
+
+type InfoAboutJob {
+  workerOrder: WorkerOrder
+  courses: [Course]
+}
+
+input IntFilter {
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  eq: Int
+  notEq: Int
+  between: [Int]
+}
+
+type Job {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  name: String
+  date: Date
+  startTime: Time
+  endTime: Time
+  duration: Int
+  cost: Float
+  object: Organization
+  jobTemplate: JobTemplate
+  jobType: JobType
+  description: String
+  isHot: Boolean
+  published: Date
+  status: JobStatus
+  candidates: [Candidate]
+  executor: Person
+  statuses: [Status]
+  isDeleted: Boolean
+  rating: Float
+  ratingDescription: String
+}
+
+input JobFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  date: DateFilter
+  startTime: TimeFilter
+  endTime: TimeFilter
+  duration: IntFilter
+  cost: FloatFilter
+  object: OrganizationFilter
+  jobTemplate: JobTemplateFilter
+  jobType: JobTypeFilter
+  description: StringFilter
+  isHot: Boolean
+  executor: PersonFilter
+  isDeleted: Boolean
+  status: StringFilter
+  rating: FloatFilter
+  and: [JobFilter]
+  or: [JobFilter]
+  not: JobFilter
+}
+
+type JobFlow {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  organization: Organization
+  jobType: JobType
+  scriptType: ScriptType
+  diff: Int
+  script: String
+}
+
+input JobFlowInput {
+  uuid: UUID
+  isDeleted: Boolean
+  organization: OrganizationInput
+  jobType: JobTypeInput
+  scriptType: ScriptType
+  diff: Int
+  script: String
+}
+
+input JobInput {
+  uuid: UUID
+  name: String
+  date: Date
+  startTime: Time
+  endTime: Time
+  duration: Int
+  cost: Float
+  object: OrganizationInput
+  jobTemplate: JobTemplateInput
+  jobType: JobTypeInput
+  description: String
+  isHot: Boolean
+  published: Date
+  status: JobStatus
+  candidates: [CandidateInput]
+  executor: PersonInput
+  statuses: [StatusInput]
+  isDeleted: Boolean
+  rating: Float
+  ratingDescription: String
+}
+
+input JobSort {
+  field: JobSortableField
+  order: SortOrder = ASC
+}
+
+enum JobSortableField {
+  uuid
+  created
+  updated
+  date
+  startTime
+  endTime
+  description
+}
+
+enum JobStatus {
+  created
+  draft
+  publish
+  full
+  ready
+  onObject
+  start
+  end
+  cancel
+  reset
+  dispute
+  reject
+}
+
+type JobTemplate {
+  uuid: UUID
+  name: String
+  created: DateTime
+  updated: DateTime
+  organization: Organization
+  object: Organization
+  region: Region
+  area: Area
+  city: City
+  jobType: JobType
+  cost: Float
+  date: Date
+  startTime: Time
+  endTime: Time
+  duration: Int
+  description: String
+  published: Date
+  isDeleted: Boolean
+}
+
+input JobTemplateFilter {
+  uuid: UUIDFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  organization: OrganizationFilter
+  object: OrganizationFilter
+  region: RegionFilter
+  area: AreaFilter
+  city: CityFilter
+  jobType: JobTypeFilter
+  cost: FloatFilter
+  date: DateFilter
+  startTime: TimeFilter
+  endTime: TimeFilter
+  duration: IntFilter
+  description: StringFilter
+  published: DateFilter
+  isDeleted: Boolean
+}
+
+input JobTemplateInput {
+  uuid: UUID
+  name: String
+  organization: OrganizationInput
+  object: OrganizationInput
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  jobType: JobTypeInput
+  cost: Float
+  date: Date
+  startTime: Time
+  endTime: Time
+  duration: Int
+  description: String
+  published: Date
+  isDeleted: Boolean
+}
+
+type JobType {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  icon: JobTypeIcon
+  organization: Organization
+  name: String
+  localityJobCost: [LocalityJobCost]
+  courses: [Course]
+  isDeleted: Boolean
+  needMedicalBook: Boolean
+  timeAllowedLate: Int
+  jobTypeClassifier: JobTypeClassifier
+}
+
+type JobTypeClassifier {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  name: String
+}
+
+input JobTypeClassifierInput {
+  uuid: UUID
+  isDeleted: Boolean
+  name: String
+}
+
+type jobTypeCost {
+  min: Float
+  max: Float
+}
+
+input JobTypeFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  icon: JobTypeIcon
+  organization: OrganizationFilter
+  name: StringFilter
+  isDeleted: Boolean
+}
+
+enum JobTypeIcon {
+  cleaner
+  cashier
+  loader
+  merchandiser
+}
+
+input JobTypeInput {
+  uuid: UUID
+  icon: JobTypeIcon
+  organization: OrganizationInput
+  name: String
+  localityJobCost: [LocalityJobCostInput]
+  courses: [CourseInput]
+  isDeleted: Boolean
+  needMedicalBook: Boolean
+  timeAllowedLate: Int
+  jobTypeClassifier: JobTypeClassifierInput
+}
+
+scalar JSON
+
+type LocalityJobCost {
+  uuid: UUID
+  created(start: String!, stop: String!): DateTime
+  updated: DateTime
+  organization: Organization
+  country: Country
+  region: Region
+  area: Area
+  city: City
+  cityDistrict: CityDistrict
+  settlement: Settlement
+  group: Organization
+  maxCost: Float
+  isDeleted: Boolean
+}
+
+input LocalityJobCostFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  organization: OrganizationFilter
+  country: CountryFilter
+  region: RegionFilter
+  area: AreaFilter
+  city: CityFilter
+  cityDistrict: CityDistrictFilter
+  settlement: SettlementFilter
+  maxCost: FloatFilter
+  isDeleted: Boolean
+}
+
+input LocalityJobCostInput {
+  uuid: UUID
+  organization: OrganizationInput
+  country: CountryInput
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  cityDistrict: CityDistrictInput
+  settlement: SettlementInput
+  group: OrganizationInput
+  maxCost: Float
+  isDeleted: Boolean
+}
+
+type MedicalBook {
+  uuid: UUID
+  number: String
+  medicalExaminationDate: Date
+  contents: [Content]
+  person: Person
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  haveHealthRestrictions: Boolean
+  haveMedicalBook: Boolean
+  descriptionHealthRestrictions: String
+  checked: Boolean
+  checkedDate: Date
+  checkedPerson: Person
+  autoValidate: Boolean
+  site1: String
+  site2: String
+}
+
+input MedicalBookInput {
+  uuid: UUID
+  number: String
+  medicalExaminationDate: Date
+  contents: [ContentInput]
+  person: PersonInput
+  isDeleted: Boolean
+  haveHealthRestrictions: Boolean
+  haveMedicalBook: Boolean
+  descriptionHealthRestrictions: String
+  checked: Boolean
+  checkedDate: Date
+  checkedPerson: PersonInput
+}
+
+type Movement {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  organization: Organization
+  direct: Direct
+  destination: DestinationMovement
+  person: Person
+  job: Job
+  amount: Float
+  link: String
+  id: String
+  payment: Boolean
+  idPayment: String
+  cancel: Boolean
+  offline: Boolean
+}
+
+input MovementFilter {
+  uuid: UUIDFilter
+  isDeleted: Boolean
+  organization: OrganizationFilter
+  direct: Direct
+  destination: DestinationMovement
+  person: PersonFilter
+  job: JobFilter
+  amount: Float
+  and: [MovementFilter]
+  or: [MovementFilter]
+  not: MovementFilter
+}
+
+input MovementInput {
+  uuid: UUID
+  isDeleted: Boolean
+  organization: OrganizationInput
+  direct: Direct
+  destination: DestinationMovement
+  person: PersonInput
+  job: JobInput
+  amount: Float
+  offline: Boolean
+}
+
+type MsgStat {
+  job: Job
+  person: Person
+  reading: Boolean!
+}
+
+enum MsgType {
+  new
+  acknowledged
+  reading
+  archived
+  all
+}
+
+type Mutation {
+  ping: String
+  movementMutation(movement: MovementInput): Movement
+  addToBalance(organization: OrganizationInput!, amount: Float!): Boolean!
+  cancellation(id: String, description: String): Boolean!
+  parseAddress(rawAddress: String): [String]
+  countryMutation(country: CountryInput): Country
+  regionMutation(region: RegionInput): Region
+  areaMutation(area: AreaInput): Area
+  cityMutation(city: CityInput): City
+  cityDistrictMutation(cityDistrict: CityDistrictInput): CityDistrict
+  settlementMutation(settlement: SettlementInput): Settlement
+  streetMutation(street: StreetInput): Street
+  addressMutation(address: AddressInput): Address
+  contactMutation(contact: ContactInput): Contact
+  contactTypeMutation(contactType: ContactTypeInput): ContactType
+  JobFlowMutation(jobFlow: JobFlowInput): JobFlow
+  publishJob(job: JobInput): Boolean!
+  agreeToJob(job: JobInput, user: UserInput): InfoAboutJob
+  refuseJob(job: JobInput, reason: String!): Boolean!
+  check(job: JobInput, lat: Float, lon: Float, user: UserInput): Boolean!
+  onPlace(job: JobInput, lat: Float, lon: Float): Boolean!
+  conflictOnJob(job: JobInput, reason: String!): Boolean!
+  changeStatusJob(job: JobInput, status: StatusInput): Boolean!
+  cancelJob(job: JobInput, reason: String!): Boolean!
+  rejectPerson(job: JobInput, person: PersonInput, reason: String!): Boolean!
+  brokenJob(job: JobInput, reason: String!): Boolean!
+  closeJob(job: JobInput, percentagePayment: Int): PersonRating!
+  runJob(code: String): Boolean!
+  endJob(
+    code: String
+    percentagePayment: Int
+    description: String
+  ): PersonRating!
+  addMsg(job: JobInput, description: String!, content: [ContentInput]): Boolean!
+  readMsg(job: JobInput!): Boolean!
+  jobGeoPolling(job: JobInput!, coordinates: [Coordinates]): Boolean!
+  readFNSMsg(id: String!): Boolean!
+  archFNSMsg(id: String!): Boolean!
+  trace(lat: Float, lon: Float): Boolean!
+  courseMutate(course: CourseInput): Course
+  localityJobCostMutate(localityJobCost: LocalityJobCostInput): LocalityJobCost
+  jobTypeClassifierMutation(
+    jobTypeClassifier: JobTypeClassifierInput
+  ): JobTypeClassifier
+  jobTypeMutate(jobType: JobTypeInput): JobType
+  jobTemplateMutate(jobTemplate: JobTemplateInput): JobTemplate
+  jobMutate(job: JobInput): Job
+  candidateMutate(candidate: CandidateInput): Candidate
+  statusMutate(status: StatusInput): Status
+  tagMutate(tag: TagInput): Tag
+  massCreationJobs(
+    jobTemplate: JobTemplateInput!
+    objects: [OrganizationInput!]
+    Dates: [Date]
+  ): Boolean!
+  setJobRating(job: UUID!, rating: Float!, description: String): Boolean!
+  medicalBookMutation(medicalBook: MedicalBookInput): MedicalBook
+  checkMB(medicalBook: MedicalBookInput, checked: Boolean): Boolean!
+  nationalityMutation(nationality: NationalityInput): Nationality
+  singleUpload(uuidObject: UUID, file: Upload!, bucket: String!): UUID!
+  multipleUpload(files: [Upload!]!, bucket: String!): [UUID!]!
+  organizationPositionMutation(
+    organizationPosition: OrganizationPositionInput
+  ): OrganizationPosition
+  organizationContactMutation(
+    organizationContact: OrganizationContactInput
+  ): OrganizationContact
+  organizationMutation(organization: OrganizationInput): Organization
+  excludePerson(organization: UUID!, person: UUID!): Boolean!
+  excludePersonInObject(organization: UUID!, person: UUID!): Boolean!
+  dropOrganization(organization: OrganizationInput): Boolean!
+  removeParent(organization: OrganizationInput): Boolean!
+  settingMutation(setting: SettingsInput): Settings
+  passportMutation(passport: PassportInput): Passport
+  personMutation(person: PersonInput): Person
+  personCourseMutation(course: PersonCourseInput): PersonCourse
+  personRatingMutation(personRating: PersonRatingInput): PersonRating
+  agreement(incomeRegistration: Boolean!, taxPayment: Boolean!): Boolean!
+  removeContact(person: PersonInput, contact: ContactInput): Boolean!
+  reqToPartner: Boolean!
+  getCardRegistrationView(spb: Boolean): String!
+  setDefaultPaymentType(uuid: UUID): Boolean!
+  setBankForSBP(BankID: String!): Boolean!
+  deletePaymentType(uuid: UUID!): Boolean!
+  roleMutation(role: RoleInput): Role
+  validate(pincode: String!): String
+  userMutation(user: UserInput): User
+  resetUser(phone: String): Boolean!
+  updateToken(token: String!): Boolean!
+}
+
+type Nationality {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  name: String
+  isDeleted: Boolean
+}
+
+input NationalityInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+type newMsgs {
+  fns: Int!
+  sys: Int!
+}
+
+enum Object {
+  Organization
+}
+
+type Organization {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isGroup: Boolean
+  name: String
+  inn: String
+  kpp: String
+  addressLegal: Address
+  addressFact: Address
+  parent: Organization
+  parentOrganization: Organization
+  departments: [Organization]
+  isDeleted: Boolean
+  logo: Content
+  prefix: String
+  fullName: String
+  shortName: String
+  fee: Float
+  firstReserveReward: Float
+  secondReserveReward: Float
+  persons: [Person]
+  stDistance: Float
+  stTime: Int
+}
+
+type OrganizationContact {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  position: OrganizationPosition
+  person: Person
+  isDeleted: Boolean
+}
+
+input OrganizationContactInput {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  position: OrganizationPositionInput
+  person: PersonInput
+  isDeleted: Boolean
+}
+
+input OrganizationFilter {
+  uuid: UUIDFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  name: StringFilter
+  inn: StringFilter
+  kpp: StringFilter
+  addressLegal: AddressFilter
+  addressFact: AddressFilter
+  parent: OrganizationFilter
+  parentOrganization: OrganizationFilter
+  isDeleted: Boolean
+  prefix: StringFilter
+  fullName: StringFilter
+  shortName: StringFilter
+  fee: FloatFilter
+}
+
+input OrganizationInput {
+  uuid: UUID
+  name: String
+  inn: String
+  kpp: String
+  addressLegal: AddressInput
+  addressFact: AddressInput
+  parent: OrganizationInput
+  parentOrganization: OrganizationInput
+  departments: [OrganizationInput]
+  isDeleted: Boolean
+  logo: ContentInput
+  prefix: String
+  fullName: String
+  shortName: String
+  fee: Float
+  persons: [PersonInput]
+  isGroup: Boolean
+  firstReserveReward: Float
+  secondReserveReward: Float
+  stDistance: Float
+  stTime: Int
+}
+
+type OrganizationPosition {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  name: String
+  isDeleted: Boolean
+}
+
+input OrganizationPositionInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+enum OrganizationType {
+  Org
+  Dep
+}
+
+type Passport {
+  uuid: UUID
+  serial: String
+  number: String
+  departmentCode: String
+  department: String
+  dateIssue: Date
+  person: Person
+  created: DateTime
+  updated: DateTime
+  scan: Content
+  addressRegistration: Address
+  photoRegistration: Content
+  isDeleted: Boolean
+}
+
+input PassportFilter {
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  serial: StringFilter
+  number: StringFilter
+  departmentCode: StringFilter
+  department: StringFilter
+  dateIssue: DateFilter
+  and: [UserFilter]
+  or: [UserFilter]
+  not: UserFilter
+}
+
+input PassportInput {
+  uuid: UUID
+  serial: String
+  number: String
+  dateIssue: Date
+  departmentCode: String
+  department: String
+  person: PersonInput
+  scan: ContentInput
+  addressRegistration: AddressInput
+  photoRegistration: ContentInput
+  isDeleted: Boolean
+}
+
+input PassportSort {
+  field: UserSortableField
+  order: SortOrder = ASC
+}
+
+enum PassportSortableField {
+  uuid
+  created
+  updated
+  serial
+  number
+  dateIssue
+  departmentCode
+  department
+}
+
+type PaymentType {
+  uuid: UUID
+  spb: Boolean
+  pan: String
+  bank: String
+  default: Boolean
+}
+
+type Permission {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  object: String
+  insert: Boolean
+  read: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+input PermissionInput {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  object: String
+  insert: Boolean
+  read: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+type Person {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  user: User
+  actualContact: Contact
+  contacts: [Contact]
+  passport: Passport
+  surname: String
+  name: String
+  patronymic: String
+  birthDate: Date
+  gender: Gender
+  country: Country
+  inn: String
+  medicalBook: MedicalBook
+  photo: Content
+  isDeleted: Boolean
+  position: OrganizationPosition
+  isContact: Boolean
+  recognizeResult: JSON
+  distanceResult: JSON
+  recognizedFields: RecognizedFields
+  selfEmployed: Boolean
+  validated: Boolean
+  rating: Float
+  taxPayment: Boolean
+  incomeRegistration: Boolean
+}
+
+type PersonCourse {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  person: Person
+  course: Course
+  questions: Int
+  answers: Int
+}
+
+input PersonCourseInput {
+  uuid: UUID
+  isDeleted: Boolean
+  person: PersonInput
+  course: CourseInput
+  questions: Int
+  answers: Int
+}
+
+input PersonFilter {
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  surname: StringFilter
+  name: StringFilter
+  patronymic: StringFilter
+  birthDate: DateFilter
+  inn: StringFilter
+  and: [PersonFilter]
+  or: [PersonFilter]
+  not: PersonFilter
+}
+
+input PersonInput {
+  uuid: UUID
+  user: UserInput
+  actualContact: ContactInput
+  contacts: [ContactInput]
+  passport: PassportInput
+  surname: String
+  name: String
+  patronymic: String
+  birthDate: Date
+  gender: Gender
+  country: CountryInput
+  inn: String
+  medicalBook: MedicalBookInput
+  photo: ContentInput
+  isDeleted: Boolean
+  position: OrganizationPositionInput
+  isContact: Boolean
+  validated: Boolean
+  selfEmployed: Boolean
+}
+
+type PersonRating {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  person: Person
+  job: Job
+  rating: Float
+  description: String
+}
+
+input PersonRatingInput {
+  uuid: UUID
+  isDeleted: Boolean
+  person: PersonInput
+  job: JobInput
+  rating: Float
+  description: String
+}
+
+input PersonSort {
+  field: UserSortableField
+  order: SortOrder = ASC
+}
+
+enum PersonSortableField {
+  uuid
+  created
+  updated
+  surname
+  name
+  patronymic
+  birthDate
+  inn
+}
+
+type PersonValidateStatus {
+  passport: Boolean!
+  avatar: Boolean!
+}
+
+type Query {
+  ping(type: String, text: String, extra: String): String
+  movement(movement: MovementInput): Movement
+  movements(
+    movement: MovementInput
+    filter: MovementFilter
+    offset: Int
+    limit: Int
+  ): [Movement]
+  flowBalance(organization: OrganizationInput, from: Date, to: Date): [Balance]
+  getBalance(organization: OrganizationInput!, until: Date): Float
+  statistics(organization: OrganizationInput): stat
+  country(country: CountryInput): Country
+  countries(country: CountryInput, offset: Int, limit: Int): [Country]
+  region(region: RegionInput): Region
+  regions(region: RegionInput, offset: Int, limit: Int): [Region]
+  area(area: AreaInput): Area
+  areas(area: AreaInput, offset: Int, limit: Int): [Area]
+  city(city: CityInput): City
+  cities(city: CityInput, offset: Int, limit: Int): [City]
+  cityDistrict(cityDistrict: CityDistrictInput): CityDistrict
+  cityDistricts(
+    cityDistrict: CityDistrictInput
+    offset: Int
+    limit: Int
+  ): [CityDistrict]
+  settlement(settlement: SettlementInput): Settlement
+  settlements(
+    settlement: SettlementInput
+    offset: Int
+    limit: Int
+  ): [Settlement]
+  street(street: StreetInput): Street
+  streets(street: StreetInput, offset: Int, limit: Int): [Street]
+  address(address: AddressInput): Address
+  addresses(address: AddressInput, offset: Int, limit: Int): [Address]
+  contact(contact: ContactInput!): Contact
+  contacts(
+    contact: ContactInput
+    filter: ContactFilter
+    offset: Int
+    limit: Int
+  ): [Contact]
+  contactType(contactType: ContactTypeInput): ContactType
+  contactTypes(
+    contactType: ContactTypeInput
+    filter: ContactTypeFilter
+    offset: Int
+    limit: Int
+  ): [ContactType]
+  JobFlow(jobFlow: JobFlowInput): JobFlow
+  runJobRequest(job: JobInput, lat: Float, lon: Float): String
+  endJobRequest(job: JobInput, lat: Float, lon: Float): String
+  signToHotJob: Boolean
+  getMsgStats: [MsgStat]
+  userMsg(status: StatusInput, offset: Int, limit: Int): [Status]
+  newMsg: newMsgs!
+  getMsg(type: MsgType): [FnsMsg]
+  getTypeJobIcons: [String!]
+  course(course: CourseInput): Course
+  courses(course: CourseInput, offset: Int, limit: Int): [Course]
+  localityJobCost(localityJobCost: LocalityJobCostInput): LocalityJobCost
+  localityJobCosts(
+    localityJobCost: LocalityJobCostInput
+    offset: Int
+    limit: Int
+  ): [LocalityJobCost]
+  jobTypeClassifier(
+    jobTypeClassifier: JobTypeClassifierInput
+  ): JobTypeClassifier
+  jobTypeClassifiers(
+    jobTypeClassifier: JobTypeClassifierInput
+    offset: Int
+    limit: Int
+  ): [JobTypeClassifier]
+  jobType(jobType: JobTypeInput): JobType
+  jobTypes(jobType: JobTypeInput, offset: Int, limit: Int): [JobType]
+  jobTemplate(jobTemplate: JobTemplateInput): JobTemplate
+  jobTemplates(
+    jobTemplate: JobTemplateInput
+    offset: Int
+    limit: Int
+  ): [JobTemplate]
+  job(job: JobInput): Job
+  jobs(
+    job: JobInput
+    filter: JobFilter
+    sort: [JobSort!]
+    offset: Int
+    limit: Int
+  ): [Job]
+  activeJobs(
+    job: JobInput
+    filter: JobFilter
+    sort: [JobSort!]
+    offset: Int
+    limit: Int
+  ): [Job]
+  candidate(candidate: CandidateInput): Candidate
+  candidates(candidate: CandidateInput, offset: Int, limit: Int): [Candidate]
+  status(status: StatusInput): Status
+  statuses(status: StatusInput, offset: Int, limit: Int): [Status]
+  tag(tag: TagInput): Tag
+  tags(tag: TagInput, offset: Int, limit: Int): [Tag]
+  getCost(jobType: JobTypeInput, object: OrganizationInput): jobTypeCost
+  selfEmployedJobs(
+    job: JobInput
+    sort: [JobSort!]
+    offset: Int
+    limit: Int
+  ): [Job]
+  selfEmployedHistoryJobs(
+    job: JobInput
+    sort: [JobSort!]
+    offset: Int
+    limit: Int
+  ): [Job]
+  directorJobs(job: JobInput, sort: [JobSort!], offset: Int, limit: Int): [Job]
+  medicalBook(medicalBook: MedicalBookInput!): MedicalBook
+  medicalBooks(
+    medicalBook: MedicalBookInput
+    offset: Int
+    limit: Int
+  ): [MedicalBook]
+  nationality(nationality: NationalityInput): Nationality
+  nationalities(
+    nationality: NationalityInput
+    offset: Int
+    limit: Int
+  ): [Nationality]
+  organizationPosition(
+    organizationPosition: OrganizationPositionInput
+  ): OrganizationPosition
+  organizationPositions(
+    organizationPosition: OrganizationPositionInput
+    offset: Int
+    limit: Int
+  ): [OrganizationPosition]
+  organizationContact(
+    organizationContact: OrganizationContactInput
+  ): OrganizationContact
+  organizationContacts(
+    organizationContact: OrganizationContactInput
+    offset: Int
+    limit: Int
+  ): [OrganizationContact]
+  organization(organization: OrganizationInput): Organization
+  organizations(
+    organization: OrganizationInput
+    offset: Int
+    limit: Int
+  ): [Organization]
+  getOrganizationRating(organization: OrganizationInput): Float
+  settings: Settings
+  passport(passport: PassportInput!): Passport
+  passports(
+    passport: PassportInput
+    filter: PassportFilter
+    sort: [PassportSort!]
+    offset: Int
+    limit: Int
+  ): [Passport]
+  person(person: PersonInput!): Person
+  persons(
+    person: PersonInput
+    filter: PersonFilter
+    phonefilter: String
+    surnamefilter: String
+    namefilter: String
+    patronymicfilter: String
+    innfilter: String
+    sort: [PersonSort!]
+    offset: Int
+    limit: Int
+  ): [Person]
+  parsePerson(photo: Upload, passport: Upload): PersonValidateStatus!
+  validateINN(inn: String!): Boolean
+  personCourses(course: PersonCourseInput): [PersonCourse]
+  getPersonRating(person: PersonInput!): Float
+  getMyRating: Float
+  personRating(personRating: PersonRatingInput): PersonRating
+  personRatings(
+    personRating: PersonRatingInput
+    offset: Int
+    limit: Int
+  ): [PersonRating]
+  getSelfEmployerStatus: Boolean!
+  personTax: Taxes!
+  getPersonTax(person: PersonInput): Taxes!
+  getRegisteredPaymentTypes: [PaymentType]
+  getBanksForSBP: [Banks]
+  findBank(like: String): [Banks]
+  getDefaultPaymentType: PaymentType
+  role(role: RoleInput): Role
+  roles(role: RoleInput, offset: Int, limit: Int): [Role]
+  authUserByPhone(phone: String!, client: ClientType): String
+  regUserByPhone(phone: String!): String
+  getCurrentUser: User
+  user(user: UserInput): User
+  users(
+    user: UserInput
+    filter: UserFilter
+    sort: [UserSort!]
+    phonefilter: String
+    fiofilter: String
+    innfilter: String
+    offset: Int
+    limit: Int
+  ): [User]
+  usersByObject(
+    object: OrganizationInput
+    user: UserInput
+    filter: UserFilter
+    sort: [UserSort!]
+    offset: Int
+    limit: Int
+  ): [User]
+  userLocation(lat: Float, lon: Float): Boolean
+}
+
+type RecognizedField {
+  result: String
+  confidence: Float
+  valid: Boolean
+}
+
+type RecognizedFields {
+  error: String
+  surname: RecognizedField
+  name: RecognizedField
+  patronymic: RecognizedField
+  birthDate: RecognizedField
+  gender: RecognizedField
+  serial: RecognizedField
+  number: RecognizedField
+  department: RecognizedField
+  dateIssue: RecognizedField
+  departmentCode: RecognizedField
+}
+
+type Region {
+  uuid: UUID
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  timezone: Int
+}
+
+input RegionFilter {
+  uuid: UUID
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input RegionInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+  timezone: Int
+}
+
+input ResourceAttributes {
+  resource: String
+  role: String
+  mode: String
+}
+
+type RightToObject {
+  object: String
+  select: Boolean
+  insert: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+input RightToObjectInput {
+  object: String
+  select: Boolean
+  insert: Boolean
+  update: Boolean
+  delete: Boolean
+}
+
+type Role {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  name: String
+  organization: Organization
+  roleType: TypeRole
+  permissions: [Permission]
+}
+
+input RoleInput {
+  uuid: UUID
+  isDeleted: Boolean
+  name: String
+  organization: OrganizationInput
+  roleType: TypeRole
+  permissions: [PermissionInput]
+}
+
+enum ScriptType {
+  prepare
+}
+
+type Settings {
+  fnsPartnerID: String
+  fnsRegistrationDate: DateTime
+  inn: String
+  name: String
+}
+
+input SettingsInput {
+  fnsPartnerID: String
+  fnsRegistrationDate: DateTime
+  inn: String
+  name: String
+}
+
+type Settlement {
+  uuid: UUID
+  region: Region
+  area: Area
+  city: City
+  cityDistrict: CityDistrict
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input SettlementFilter {
+  uuid: UUIDFilter
+  region: RegionFilter
+  area: AreaFilter
+  city: CityFilter
+  cityDistrict: CityDistrictFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input SettlementInput {
+  uuid: UUID
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  cityDistrict: CityDistrictInput
+  name: String
+  isDeleted: Boolean
+}
+
+enum SortOrder {
+  ASC
+  DESC
+}
+
+type stat {
+  month: Float
+  previousMonth: Float
+  quarter: Float
+}
+
+type Status {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  person: Person
+  job: Job
+  status: JobStatus
+  description: String
+  content: [Content]
+  tags: [Tag]
+  isDeleted: Boolean
+  lat: Float
+  lon: Float
+}
+
+input StatusInput {
+  uuid: UUID
+  person: PersonInput
+  job: JobInput
+  description: String
+  content: [ContentInput]
+  tags: [TagInput]
+  status: JobStatus
+  isDeleted: Boolean
+}
+
+type Street {
+  uuid: UUID
+  region: Region
+  area: Area
+  city: City
+  cityDistrict: CityDistrict
+  settlement: Settlement
+  name: String
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+}
+
+input StreetFilter {
+  uuid: UUIDFilter
+  region: RegionFilter
+  area: AreaFilter
+  city: CityFilter
+  cityDistrict: CityDistrictFilter
+  settlement: SettlementFilter
+  name: StringFilter
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  isDeleted: Boolean
+}
+
+input StreetInput {
+  uuid: UUID
+  region: RegionInput
+  area: AreaInput
+  city: CityInput
+  cityDistrict: CityDistrictInput
+  settlement: SettlementInput
+  name: String
+  isDeleted: Boolean
+}
+
+input StringFilter {
+  ilike: String
+  like: String
+}
+
+type Subscription {
+  pingSub(id: String): String
+  movementSub(movement: MovementInput): Movement
+  regionSub: Region
+  areaSub: Area
+  citySub: City
+  msgStatSub: MsgStat
+  jobStatSub(job: JobInput): Status
+  jobSub: Job
+  jobTypeSub: JobType
+  organizationSub: Organization
+  parsePersonSub: RecognizedFields!
+  personSub(person: PersonInput): Person
+  personPaymentTypeSub: PaymentType
+  userSub(user: UserInput): User
+}
+
+type Tag {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+input TagInput {
+  uuid: UUID
+  name: String
+  isDeleted: Boolean
+}
+
+type Taxes {
+  bonusAmount: Float
+  unpaidAmount: Float
+  debtAmount: Float
+}
+
+type TemplateRights {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  name: String
+  rightsToObject: [RightToObject]
+}
+
+input TemplateRightsInput {
+  uuid: UUID
+  isDeleted: Boolean
+  name: String
+  rightsToObject: [RightToObjectInput]
+}
+
+scalar Time
+
+input TimeFilter {
+  gt: Time
+  gte: Time
+  lt: Time
+  lte: Time
+  eq: Time
+  notEq: Time
+  between: [Time]
+}
+
+enum TypeRole {
+  system
+  organizationManager
+  groupManager
+  objectManager
+}
+
+scalar Upload
+
+type User {
+  uuid: UUID
+  created: DateTime
+  updated: DateTime
+  isDeleted: Boolean
+  isBlocked: Boolean
+  isDisabled: Boolean
+  contact: Contact
+  person: Person
+  userType: UserType
+  organization: Organization
+  groups: [Organization]
+  objects: [Organization]
+  role: Role
+}
+
+input UserFilter {
+  created: DateTimeFilter
+  updated: DateTimeFilter
+  person: PersonFilter
+  contact: ContactFilter
+  isDeleted: Boolean
+  isBlocked: Boolean
+  isDisabled: Boolean
+  and: [UserFilter]
+  or: [UserFilter]
+  not: UserFilter
+}
+
+input UserInput {
+  uuid: UUID
+  isDeleted: Boolean
+  isBlocked: Boolean
+  isDisabled: Boolean
+  contact: ContactInput
+  person: PersonInput
+  userType: UserType
+  organization: OrganizationInput
+  groups: [OrganizationInput]
+  objects: [OrganizationInput]
+  role: RoleInput
+}
+
+input UserSort {
+  field: UserSortableField
+  order: SortOrder = ASC
+}
+
+enum UserSortableField {
+  uuid
+  created
+  updated
+}
+
+enum UserType {
+  SelfEmployed
+  SystemUser
+}
+
+scalar UUID
+
+input UUIDFilter {
+  eq: UUID
+  notEq: UUID
+  in: [UUID]
+  noIn: [UUID]
+}
+
+enum WorkerOrder {
+  Primary
+  Secondary
+}
+
