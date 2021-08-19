@@ -1,15 +1,15 @@
-directive @goField(
-  forceResolver: Boolean
-  name: String
-) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
+irective @BlockParsePerson on FIELD_DEFINITION
 directive @goModel(
   model: String
   models: [String!]
 ) on OBJECT | INPUT_OBJECT | SCALAR | ENUM | INTERFACE | UNION
+directive @goField(
+  forceResolver: Boolean
+  name: String
+) on INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 directive @HasAccess(attributes: ResourceAttributes!) on FIELD_DEFINITION
 directive @Private on FIELD_DEFINITION
 directive @isValidated on FIELD_DEFINITION
-directive @BlockParsePerson on FIELD_DEFINITION
 type Address {
   uuid: UUID
   formattedAddress: String
