@@ -1,4 +1,4 @@
-irective @BlockParsePerson on FIELD_DEFINITION
+directive @BlockParsePerson on FIELD_DEFINITION
 directive @goModel(
   model: String
   models: [String!]
